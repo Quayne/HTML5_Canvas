@@ -1,22 +1,26 @@
 $(document).ready(function () {
     var area = [];
     var selectedArea;
-    var description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
-    //var hamiltonAreas = { }
+    var description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
 
     //Needs to handle mouseout so that highlighted area doesn't go away after been clicked
     $("area").click(function () {
-        //var id = $(this).attr('id');
         //remove hightlight on all areas
         highlightArea(this);
         selectedArea = this;
 
-        //for (var i = -1; i < area.length; i++) {
-        //    if (selectedArea != area[i + 1]) {
-        //        area.push(selectedArea);
-        //        i += 1;
-        //    }
-        //}
+        if (area.indexOf(selectedArea) == -1) {
+            area.push(selectedArea);
+            $("h2").text($(this).attr("title"));
+            $("h3").text($(this).data("population"));
+            $("p").text(description);
+            $("h2,h3,p").show("fast");
+        }
+        else if (area.indexOf(selectedArea) != -1) {
+            area.pop(selectedArea);
+            removeHighlight(this);
+            $("h2,h3,p").hide("fast");
+        }      
     });
 
     $("area").mouseover(function () {
